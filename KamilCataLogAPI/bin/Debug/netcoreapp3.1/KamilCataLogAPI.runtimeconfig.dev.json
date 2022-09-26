@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\Qburst\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Qburst\\.nuget\\packages"
+    ]
+  }
+}
