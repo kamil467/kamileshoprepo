@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 
 namespace KamilCataLogAPI.Controllers
 {
-
+    /// <summary>
+    /// API Controller class.
+    /// </summary>
     [ApiController]
     [Route("api/[controller]")] // default route url - this will not work since without version will not allow.
     //test url : api/v1/WeatherForecast
