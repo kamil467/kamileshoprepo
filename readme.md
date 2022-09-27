@@ -38,7 +38,7 @@ C# and .NET technologies are primarly used for developing this application.
 - Custom Collection Implementation
 - State management 
 - Caching
-
+---------------------------------------------------------------------------------------------
 ###### Swagger Implementation:
 - Swagger Help us to generate API meta data and description.
 - Microsoft provides support for integrating swagger with .NET API application.
@@ -49,5 +49,17 @@ C# and .NET technologies are primarly used for developing this application.
   - Microsoft Flow - Low code tool
   - Microsoft PowerApps - low code tool.
   - Azure App Service Logic Apps - low code tool.
+  ---------------------------------------------------------------------------------------------
+  
+  ###### API Versioning:
+  - API versioning is one of the characteristics of REST API.
+  - The versioning mechanism is simple and depends on the server routing the request to the appropriate endpoint.
+  - Use HATEOAS - HyperText as the Engine of Application State approach for implementing the versioning.
+  - There are different version of can be implemented.
+  - There are following approaches we can follow.
 
+    - Query String
+    - Request Header
+    - Url segment- This is most popular and explicit approach
+    - MediaType
 
