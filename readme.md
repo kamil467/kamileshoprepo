@@ -39,4 +39,15 @@ C# and .NET technologies are primarly used for developing this application.
 - State management 
 - Caching
 
+###### Swagger Implementation:
+- Swagger Help us to generate API meta data and description.
+- Microsoft provides support for integrating swagger with .NET API application.
+- Swagger uses the OpenAPI specification.
+- The specification defines how a service should be discovered and how it's capabilities understood.
+- Swagger metadata can be used by other application and it helps them quickly consume and integrate.
+  - AutoRest - Helps to generate .NET classes based on swagger meta data description.
+  - Microsoft Flow - Low code tool
+  - Microsoft PowerApps - low code tool.
+  - Azure App Service Logic Apps - low code tool.
+
 
