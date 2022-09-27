@@ -43,7 +43,8 @@ namespace KamilCataLogAPI.Extensions
                     );
 
                 o.Conventions.Controller<CatalogOldController>()
-                             .HasApiVersion(new ApiVersion(1, 0));
+                .HasDeprecatedApiVersion(new ApiVersion(1, 0)); // Advertise this as a deprecated api version
+
                 o.Conventions.Controller<CatalogController>()
                              .HasApiVersion(new ApiVersion(2, 0));
                

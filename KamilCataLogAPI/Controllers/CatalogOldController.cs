@@ -10,7 +10,7 @@ namespace KamilCataLogAPI.Controllers
     /// <summary>
     /// API Controller class.
     /// </summary>
-   // [ApiVersion("1")] // this moved global api version handler
+    // [ApiVersion("1")] // this moved global api version handler
     [ApiController]
     [Route("api/Catalog")] // default route url - this will not work since without version will not allow.- update the setting in global api versioning 
     //test url : api/v1/Catalog
