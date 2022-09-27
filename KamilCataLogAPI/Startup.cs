@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,11 +29,12 @@ namespace KamilCataLogAPI
         {
             services.AddControllers();
             services.AddCustomAPIVersion(); // enable custom API versioning.
-                  
+            //Add and configure swagger service.
+            services.AddCustomSwaggerWithAPIVersionSupport();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider apiVersionDescriptionProvider)
         {
             if (env.IsDevelopment())
             {
@@ -40,6 +42,17 @@ namespace KamilCataLogAPI
             }
 
             app.UseHttpsRedirection();
+
+            //Enable Swagger in the middleware
+            app.UseSwagger().UseSwaggerUI(c =>
+            {
+
+               foreach(var versionProvider in apiVersionDescriptionProvider.ApiVersionDescriptions)
+                {
+                    c.SwaggerEndpoint($"/swagger/{versionProvider.GroupName}/swagger.json", $"{versionProvider.GroupName.ToUpperInvariant()}");
+                    //  // Swagger metadata json url : JSON gets generated automatically every we visit this url.
+                }
+            });
 
             app.UseRouting();
 
