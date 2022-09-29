@@ -43,5 +43,18 @@ namespace KamilCataLogAPI.Controllers
         public void Delete(int id)
         {
         }
+
+        //this one will be served from v1 while remaining endpoints served from v2 for this controller.
+        /// api/v1/catalog/GetNumericData
+        [MapToApiVersion("1.0")]
+        [HttpGet("GetNumericData")]
+        /// <summary>
+        /// returns numeric data.
+        /// </summary>
+        /// <returns>1</returns>
+        public int GetNumericData()
+        {
+            return 1;
+        }
     }
 }
