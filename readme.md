@@ -39,7 +39,7 @@ C# and .NET technologies are primarly used for developing this application.
 - State management 
 - Caching
 ---------------------------------------------------------------------------------------------
-###### Swagger Implementation: (Implementation #3 and #9)
+###### Swagger Implementation: (Implementation #3 , #9 )
 - Swagger Help us to generate API meta data and description.
 - Microsoft provides support for integrating swagger with .NET API application.
 - Swagger uses the OpenAPI specification.
@@ -51,7 +51,7 @@ C# and .NET technologies are primarly used for developing this application.
   - Azure App Service Logic Apps - low code tool.
   ---------------------------------------------------------------------------------------------
   
-###### API Versioning: (Implementation: https://code.qburst.com/kamil.hussain/eshopcontainer/-/issues/2)
+###### API Versioning: (Implementation: https://code.qburst.com/kamil.hussain/eshopcontainer/-/issues/2 ,  #8)
 - API versioning is one of the characteristics of REST API.
 - The versioning mechanism is simple and depends on the server routing the request to the appropriate endpoint.
 - Use HATEOAS - HyperText as the Engine of Application State approach for implementing the versioning.
