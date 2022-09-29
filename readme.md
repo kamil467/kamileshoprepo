@@ -39,7 +39,7 @@ C# and .NET technologies are primarly used for developing this application.
 - State management 
 - Caching
 ---------------------------------------------------------------------------------------------
-###### Swagger Implementation:
+###### Swagger Implementation: (Implementation #3 and #9)
 - Swagger Help us to generate API meta data and description.
 - Microsoft provides support for integrating swagger with .NET API application.
 - Swagger uses the OpenAPI specification.
