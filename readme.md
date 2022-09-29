@@ -61,4 +61,4 @@ C# and .NET technologies are primarly used for developing this application.
     - Request Header
     - Url segment- This is most popular and explicit approach
     - MediaType
-Implementation Types: Controller level, action method level.
+- Implementation Types: Controller level, action method level.
