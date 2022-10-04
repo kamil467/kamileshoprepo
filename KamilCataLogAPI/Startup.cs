@@ -1,4 +1,6 @@
 using KamilCataLogAPI.Extensions;
+using KamilCataLogAPI.Repository.Implementation;
+using KamilCataLogAPI.Repository.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,6 +33,10 @@ namespace KamilCataLogAPI
             services.AddCustomAPIVersion(); // enable custom API versioning.
             //Add and configure swagger service.
             services.AddCustomSwaggerWithAPIVersionSupport();
+
+            // Add custom DB configuration
+            services.AddDBConfiguration();
+            services.AddTransient<ICatalogRepo, CatalogRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using KamilCataLogAPI.Model;
+using KamilCataLogAPI.Repository.Interface;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,6 +15,22 @@ namespace KamilCataLogAPI.Controllers
     [ApiController]
     public class CatalogController : ControllerBase
     {
+        private ICatalogRepo _catalogRepo;
+
+        public CatalogController(ICatalogRepo catalogRepo)
+        {
+              this._catalogRepo = catalogRepo;
+        }
+
+        [HttpGet("GetCataLogItems/{ids}")]
+        public IEnumerable<CatalogItem> GetCataLogItems(string ids = null)
+        {
+           var result =  this._catalogRepo.GetCatalogItemsById(ids).ToList(); // deferred execution happen here before sending response.
+            return result;
+        }
+
+
+
         // GET: api/<CatalogController>
         [HttpGet]
         public IEnumerable<string> Get()
