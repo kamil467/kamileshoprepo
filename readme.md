@@ -62,3 +62,26 @@ C# and .NET technologies are primarly used for developing this application.
     - Url segment- This is most popular and explicit approach
     - MediaType
 - Implementation Types: Controller level, action method level.
+
+------------------------------------------------------------------------------------------------
+###### Options Pattern for Reading Configuration Values:
+
+- Option Pattern allow us to read configuration values in the form strongly typed .NET classes.
+- There are two approaches for acheiving the same result.
+    - Services.Configure
+    - Services. AddOptions<T> -> Using OptionBuilder API
+
+- first approach we explicitly register configuration type in DI container.
+Example:
+
+![image.png](./image.png)
+
+- Second approach we make use of OptionBuilder API which provides more customization, even we can implement validation while reading values from configuration files.
+![image-1.png](./image-1.png)
+
+- Both the approaches we can make use of following interfaces for accessing the values in the application
+   - IOptions<T>  - Creates Signleton services, do not support Named options(same property used for multiple binding)
+   - IOptionSnapShot<T>  - Reads updated data for every request, sscoped service, supports named Options.
+   - IOptionsMonitor<T>  - Monitor for value change , actually this is type of delegate, support call back events for notifying whenever value got updated in onfiguration.
+
+-------------------------------------------------------------------
