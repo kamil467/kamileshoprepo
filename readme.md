@@ -79,4 +79,9 @@ Example:
 - Second approach we make use of OptionBuilder API which provides more customization, even we can implement validation while reading values from configuration files.
 ![image-1.png](./image-1.png)
 
+- Both the approaches we can make use of following interfaces for accessing the values in the application
+   - IOptions<T>  - Creates Signleton services, do not support Named options(same property used for multiple binding)
+   - IOptionSnapShot<T>  - Reads updated data for every request, sscoped service, supports named Options.
+   - IOptionsMonitor<T>  - Monitor for value change , actually this is type of delegate, support call back events for notifying whenever value got updated in onfiguration.
 
+-------------------------------------------------------------------
