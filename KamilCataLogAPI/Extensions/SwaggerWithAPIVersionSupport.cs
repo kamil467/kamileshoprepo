@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc.ApiExplorer;
+﻿using KamilCataLogAPI.Model.Configurations;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using System;
@@ -7,9 +9,35 @@ namespace KamilCataLogAPI.Extensions
 {
     public static class SwaggerWithAPIVersionSupport
     {
-        public static void AddCustomSwaggerWithAPIVersionSupport(this IServiceCollection services)
+        public static void AddCustomSwaggerWithAPIVersionSupport(this IServiceCollection services, IConfiguration configuration)
         {
+            //load swagger meta data details from configuration.
+
+            // Get() - > internally binds and return the specified type.
+            var v1MetaData = configuration
+                           .GetSection(CatalogAPISwaggerConfigurationOptions.Swagger)
+                           .GetSection(CatalogAPISwaggerConfigurationOptions.V1)
+                           .Get<CatalogAPISwaggerConfigurationOptions>();
+            
+            // load for V2 version
+            var v2MetaData = configuration
+                          .GetSection(CatalogAPISwaggerConfigurationOptions.Swagger)
+                          .GetSection(CatalogAPISwaggerConfigurationOptions.V2)
+                          .Get<CatalogAPISwaggerConfigurationOptions>();
+
+
+            // v1metadata and v2metadata can be converted and registered as Named Options.
+            #region Named Opions
            
+            services.Configure<CatalogAPISwaggerConfigurationOptions>(CatalogAPISwaggerConfigurationOptions.V1,configuration
+                      .GetSection(CatalogAPISwaggerConfigurationOptions.Swagger)
+                      .GetSection(CatalogAPISwaggerConfigurationOptions.V1));
+
+            services.Configure<CatalogAPISwaggerConfigurationOptions>(CatalogAPISwaggerConfigurationOptions.V2,configuration
+                      .GetSection(CatalogAPISwaggerConfigurationOptions.Swagger)
+                      .GetSection(CatalogAPISwaggerConfigurationOptions.V2));
+
+            #endregion
             services.AddSwaggerGen(options =>
             {
 
@@ -18,32 +46,17 @@ namespace KamilCataLogAPI.Extensions
 
                 options.DescribeAllParametersInCamelCase();
 
-
-          
-
-                var specificationForAPI_Two = new Microsoft.OpenApi.Models.OpenApiInfo
-                {
-                    Title = "Kamil-EshopContainers- Catalog HTTP API-V2",
-                    Version = "v2",
-                    Description = "Future Version(V2) for KamilShop Catalog Microservice API "
-                 ,
-                    Contact = new Microsoft.OpenApi.Models.OpenApiContact
-                    {
-                        Email = "kamil.hussain@qburst.com",
-                        Name = "Kamil.Hussain",
-                    },
-                    License = new Microsoft.OpenApi.Models.OpenApiLicense
-                    {
-                        Name = "Kamil.Hussain"
-                    },
-                };
-
                 //Add swagger doc for each discovered API Version
                 // here we make use of APIExplorer , this will discover all available API versioning in current system.
                 // details can be extracted from IApiVersionDescriptionProvider.
                 foreach (var description in provider.ApiVersionDescriptions)
                 {
-                    options.SwaggerDoc(description.GroupName, CreateOpenAPIInfoForDescription(description));
+                    if (description.GroupName == "v1")
+                        options.SwaggerDoc(description.GroupName, CreateOpenAPIInfoForDescription(description, v1MetaData));
+                    else if (description.GroupName == "v2")
+                        options.SwaggerDoc(description.GroupName, CreateOpenAPIInfoForDescription(description, v2MetaData));
+                    else
+                        options.SwaggerDoc(description.GroupName, CreateOpenAPIInfoForDescription(description, null)); 
                 }
 
             });
@@ -51,26 +64,31 @@ namespace KamilCataLogAPI.Extensions
      
         }
 
-        public static OpenApiInfo CreateOpenAPIInfoForDescription(ApiVersionDescription apiVersionDescription)
+        public static OpenApiInfo CreateOpenAPIInfoForDescription(ApiVersionDescription apiVersionDescription, CatalogAPISwaggerConfigurationOptions catalogAPISwaggerConfigurationOptions )
         {
             if (apiVersionDescription == null)
                 throw new NullReferenceException();
 
+            if(catalogAPISwaggerConfigurationOptions == null)
+            {
+                // print log
+            }
+
             var specificationForAPI_One = new Microsoft.OpenApi.Models.OpenApiInfo
             {
-                Title = "Kamil-EshopContainers- Catalog HTTP API-V:"+apiVersionDescription.GroupName,
+                Title = catalogAPISwaggerConfigurationOptions?.Title,
                 Version = "v"+apiVersionDescription.ApiVersion.MajorVersion,
-                Description = "The Catalog Microservice HTTP API. " +
-              "This is a data driven/CRUD microservice study application"
-             ,
+                Description = catalogAPISwaggerConfigurationOptions?.Description,
+              
+             
                 Contact = new Microsoft.OpenApi.Models.OpenApiContact
                 {
-                    Email = "kamil.hussain@qburst.com",
-                    Name = "Kamil.Hussain",
+                    Email = catalogAPISwaggerConfigurationOptions?.Contact?.Email,
+                    Name = catalogAPISwaggerConfigurationOptions?.Contact?.Name,
                 },
                 License = new Microsoft.OpenApi.Models.OpenApiLicense
                 {
-                    Name = "Kamil.Hussain"
+                    Name = catalogAPISwaggerConfigurationOptions?.Contact?.Name
                 },
             };
 

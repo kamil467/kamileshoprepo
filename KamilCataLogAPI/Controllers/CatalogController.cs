@@ -1,6 +1,8 @@
 ﻿using KamilCataLogAPI.Model;
+using KamilCataLogAPI.Model.Configurations;
 using KamilCataLogAPI.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,10 +19,57 @@ namespace KamilCataLogAPI.Controllers
     {
         private ICatalogRepo _catalogRepo;
 
-        public CatalogController(ICatalogRepo catalogRepo)
+        /// <summary>
+        /// IOption<CatalogAPISetting> Singleton Instance.
+        /// </summary>
+        private CatalogAPISetting CatalogAPISetting;
+
+        /// <summary>
+        /// snapshot variant - read updated  value every time.
+        /// </summary>
+        private CatalogAPISetting CatalogAPISetting_SnapShot;
+
+        /// <summary>
+        /// Monitor variant.
+        /// </summary>
+        private IOptionsMonitor<CatalogAPISetting> CatalogAPISetting_Monitor;
+
+        private CatalogAPISwaggerConfigurationOptions _swaggerAPIV1;
+
+        private CatalogAPISwaggerConfigurationOptions _swaggerAPIV2;
+
+        private MessageQueueConfiguration _messageQueueConfiguration;
+
+        public CatalogController(ICatalogRepo catalogRepo,
+            IOptions<CatalogAPISetting> options,
+            IOptionsSnapshot<CatalogAPISetting> optionsSnapshot,
+            IOptionsMonitor<CatalogAPISetting> optionsMonitor,
+            IOptionsSnapshot<CatalogAPISwaggerConfigurationOptions> swaggeroCnfig,
+            IOptionsSnapshot<MessageQueueConfiguration> messageQueueConfiguration
+
+            )
         {
               this._catalogRepo = catalogRepo;
+            this.CatalogAPISetting = options.Value; // Standard singleton services
+            this.CatalogAPISetting_SnapShot = optionsSnapshot.Value;
+            this.CatalogAPISetting_Monitor = optionsMonitor;
+            this.CatalogAPISetting_Monitor.OnChange(this.OnChange);
+            this._swaggerAPIV1 = swaggeroCnfig.Get(CatalogAPISwaggerConfigurationOptions.V1); // Named options
+            this._swaggerAPIV2 = swaggeroCnfig.Get(CatalogAPISwaggerConfigurationOptions.V2);  // Named Options
+            this._messageQueueConfiguration = messageQueueConfiguration.Value;
+            
+       
         }
+
+        /// <summary>
+        /// This will get called whenever a value change occurred in Configuration setting.
+        /// </summary>
+        /// <param name="obj"></param>
+        private void OnChange(object obj)
+        {
+            // your logic goes here.
+        }
+
 
         [HttpGet("GetCataLogItems/{ids}")]
         public IEnumerable<CatalogItem> GetCataLogItems(string ids = null)

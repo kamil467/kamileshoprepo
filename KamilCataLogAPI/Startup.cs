@@ -31,11 +31,16 @@ namespace KamilCataLogAPI
         {
             services.AddControllers();
             services.AddCustomAPIVersion(); // enable custom API versioning.
+           
             //Add and configure swagger service.
-            services.AddCustomSwaggerWithAPIVersionSupport();
+            services.AddCustomSwaggerWithAPIVersionSupport(this.Configuration);
 
             // Add custom DB configuration
-            services.AddDBConfiguration();
+            services.AddDBConfiguration(this.Configuration);
+
+            // uses Option Builder and Services.Configure approaches
+            services.AddCatalogAPISettingConfiguration(this.Configuration);
+
             services.AddTransient<ICatalogRepo, CatalogRepo>();
         }
 
