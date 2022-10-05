@@ -77,6 +77,6 @@ Example:
 ![image.png](./image.png)
 
 - Second approach we make use of OptionBuilder API which provides more customization, even we can implement validation while reading values from configuration files.
-
+![image-1.png](./image-1.png)
 
 
