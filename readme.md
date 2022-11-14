@@ -92,7 +92,7 @@ Example:
 - Linq provides Skip and Take extensions for performing paging related operations.
 ----------------------------------------------------------------------------------------
 
-###### Docker Configuration:
+###### Docker Configuration: #18 and 176e8ea5
  1. DokcerFile - Used for building the application and produces image
  2. docker-compose.yml - provides a way for deploying multiple dockerized application in single file. images can be directly referred from docker repo or build during deployment. we can have separate docker-compose file for each environment.
 
