@@ -85,3 +85,13 @@ Example:
    - IOptionsMonitor<T>  - Monitor for value change , actually this is type of delegate, support call back events for notifying whenever value got updated in onfiguration.
 
 -------------------------------------------------------------------
+###### Pagination:
+
+- An Endpoint should return paginated data for best practices.
+- Input parameters are page size(number of rows) and page index(page number).
+- Linq provides Skip and Take extensions for performing paging related operations.
+----------------------------------------------------------------------------------------
+
+
+
+
