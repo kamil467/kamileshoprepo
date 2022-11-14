@@ -107,6 +107,14 @@ namespace KamilCataLogAPI.Repository.Implementation
       // we are returning IQueryable since it is acceptable it inherits from IEnumerable.
         }
 
-  
+        public async Task<IEnumerable<CatalogItem>> GetCatalogItemsByPaging( int pageSize, int pageIndex)
+        {
+
+            return await this._dbContext.CatalogItems.OrderBy(o => o.Name)
+                      .Skip(pageIndex * pageSize)
+                      .Take(pageSize)
+                      .ToListAsync();
+                          
+        }
     }
 }

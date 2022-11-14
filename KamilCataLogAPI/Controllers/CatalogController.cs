@@ -1,10 +1,13 @@
 ﻿using KamilCataLogAPI.Model;
 using KamilCataLogAPI.Model.Configurations;
 using KamilCataLogAPI.Repository.Interface;
+using KamilCataLogAPI.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -123,6 +126,48 @@ namespace KamilCataLogAPI.Controllers
         public int GetNumericData()
         {
             return 1;
+        }
+
+        /// <summary>
+        /// Returns paginated data.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetCataLogItemsByPagination")]
+        [ProducesResponseType((int)HttpStatusCode.OK,Type = typeof(IEnumerable<CatalogItem>))]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(PaginatedItemsViewModel<CatalogItem>))]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> GetCataLogItems(
+            [FromQuery] int pageSize =10, [FromQuery] int pageIndex = 0,string ids =null
+            )
+        {
+            // ids passed
+            if(!string.IsNullOrEmpty(ids))
+            {
+                var dataById = this._catalogRepo.GetCatalogItemsById(ids);
+                
+                // if no data for given IDS
+                if(!dataById.Any())
+                {
+                    return BadRequest("Please provide valid IDS");
+                }
+
+                return Ok(dataById);
+            }
+
+            // no ids passed then take pagination.
+
+            var catData = await this._catalogRepo.GetCatalogItemsByPaging(pageSize, pageIndex)
+                        .ConfigureAwait(false);
+
+            var pageModel = new PaginatedItemsViewModel<CatalogItem>
+            {
+                Items = catData,
+                PageIndex = pageIndex,
+                PageSize = pageSize
+            };
+
+            return Ok(pageModel);
         }
     }
 }

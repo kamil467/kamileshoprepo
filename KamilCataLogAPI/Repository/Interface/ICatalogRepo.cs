@@ -27,5 +27,7 @@ namespace KamilCataLogAPI.Repository.Interface
         /// <param name="ids"></param>
         /// <returns>internally this will return object of IQueryable.</returns>
         IEnumerable<CatalogItem> GetCatalogItemsById(string ids);
+
+        Task<IEnumerable<CatalogItem>> GetCatalogItemsByPaging( int pageSize, int pageIndex);
     }
 }

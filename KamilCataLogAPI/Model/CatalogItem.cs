@@ -29,12 +29,12 @@ namespace KamilCataLogAPI.Model
         /// <summary>
         /// Get or Set Price.
         /// </summary>
-        public virtual decimal Price { get; set; }
+        public virtual decimal? Price { get; set; }
 
         /// <summary>
         /// Get or set CatalogType Id.
         /// </summary>
-        public virtual int CatalogTypeId { get; set; }
+        public virtual int? CatalogTypeId { get; set; }
 
         /// <summary>
         /// Get or Set CataLogType.
@@ -44,7 +44,7 @@ namespace KamilCataLogAPI.Model
         /// <summary>
         /// Get or Set CatalogBrandId.
         /// </summary>
-        public virtual int CatalogBrandId { get; set; }
+        public virtual int? CatalogBrandId { get; set; }
 
         /// <summary>
         /// Get or Set CatalogBrand.
