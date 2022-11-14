@@ -64,7 +64,7 @@ C# and .NET technologies are primarly used for developing this application.
 - Implementation Types: Controller level, action method level.
 
 ------------------------------------------------------------------------------------------------
-###### Options Pattern for Reading Configuration Values:
+###### Options Pattern for Reading Configuration Values:(Implementation: #11)
 
 - Option Pattern allow us to read configuration values in the form strongly typed .NET classes.
 - There are two approaches for acheiving the same result.
