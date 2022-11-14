@@ -1,0 +1,12 @@
+#base docker-compose file. contains common details
+version: '3.4'
+
+services:
+ catalog-api:
+     image: kamil-eshop/catalog-api:${TAG:-latest}  # image name in docker repo
+     build:
+      context: .
+      dockerfile: KamilCataLogAPI/Dockerfile  #build catalog api through dockerfile.
+     
+
+

@@ -1,0 +1,12 @@
+#docker override file.
+version : '3.4'
+
+services:
+   catalog-api:
+    environment:  # connection string and otgher configuration details
+       - ConnectionStrings__CatalogDB=Server=192.168.1.46;Initial Catalog=Test;User Id=sa;Password=kamil467
+       - MessageQueueConfiguration__Limit=300
+    expose:   # port 80 of docker container.
+      - "80"
+    ports:   # map docker VM host port to container.
+      - "5101:80"
