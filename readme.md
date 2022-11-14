@@ -85,3 +85,22 @@ Example:
    - IOptionsMonitor<T>  - Monitor for value change , actually this is type of delegate, support call back events for notifying whenever value got updated in onfiguration.
 
 -------------------------------------------------------------------
+###### Pagination: 574e752b
+
+- An Endpoint should return paginated data for best practices.
+- Input parameters are page size(number of rows) and page index(page number).
+- Linq provides Skip and Take extensions for performing paging related operations.
+----------------------------------------------------------------------------------------
+
+###### Docker Configuration:
+ 1. DokcerFile - Used for building the application and produces image
+ 2. docker-compose.yml - provides a way for deploying multiple dockerized application in single file. images can be directly referred from docker repo or build during deployment. we can have separate docker-compose file for each environment.
+
+ ###### Connecting local sql server from docker hosted application:
+  - We can not directly connect from docker app to local sql server due to docker hosting network limitation. First , we need to ensure our local instance supports TCP/IP access and use IP address from docker instead of machine name.
+ ---------------------------------------------------------------------
+
+
+
+
+
