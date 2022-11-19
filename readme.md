@@ -99,6 +99,14 @@ Example:
  ###### Connecting local sql server from docker hosted application:
   - We can not directly connect from docker app to local sql server due to docker hosting network limitation. First , we need to ensure our local instance supports TCP/IP access and use IP address from docker instead of machine name.
  ---------------------------------------------------------------------
+### Cloud Design Patterns and Problems
+
+1. Cache -A Side Pattern:
+Load on demand data into cache. This approach helps to reduce the inconsistency between cached data and data store.
+ - Read-through : read data from datastore if no data found in cache.
+ - Write-through : invalidate data held in cache if any modification happen.
+
+ ----------------------------------------------------------------------------------------------
 
 
 
