@@ -106,6 +106,13 @@ Load on demand data into cache. This approach helps to reduce the inconsistency 
  - Read-through : read data from datastore if no data found in cache.
  - Write-through : invalidate data held in cache if any modification happen.
 
+ ##### Implementation : #19
+ - Redis database successfully configired and deplyed via docker.
+ - By default redis listen to 6379 port inside docker's default network.
+ - Map docker 6379 internal port to host machine 6379.
+ - We should used Ip address of machine and 6379 as port to access redis from outside.
+ - To access redis inside docker network , we can use 127.0.0.1 or localhost.
+ 
  ----------------------------------------------------------------------------------------------
 
 
