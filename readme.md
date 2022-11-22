@@ -115,7 +115,20 @@ Load on demand data into cache. This approach helps to reduce the inconsistency 
 
 #### 2. Circuit Breaker Pattern:
   The Circuit Breaker pattern can prevent an application repeatedly trying to execute an operation that is likely to fail, allowing it to continue without waiting for the fault to be rectified or wasting CPU cycles while it determines that the fault is long lasting. The Circuit Breaker pattern also enables an application to detect whether the fault has been resolved. If the problem appears to have been rectified, the application can attempt to invoke the operation.
-Circuit Breaker Pattern 
+Circuit Breaker Pattern.
+
+  - Cricuit Breaker is different from Retry Pattern , we can combine both of them.
+  - Retry pattern may send a request through Circuit Breaker.
+  - We will get additional advantages when combining these patterns.
+  - Circuit Breaker may send a message to caller if service failure is not transient.
+  - Further Retrie can be avoided.
+
+  ---------------------------------------------------------------------------------------
+
+
+
+
+
  
  ----------------------------------------------------------------------------------------------
 
