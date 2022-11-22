@@ -101,7 +101,7 @@ Example:
  ---------------------------------------------------------------------
 ### Cloud Design Patterns and Problems
 
-1. Cache -A Side Pattern:
+#### 1. Cache -A Side Pattern:
 Load on demand data into cache. This approach helps to reduce the inconsistency between cached data and data store.
  - Read-through : read data from datastore if no data found in cache.
  - Write-through : invalidate data held in cache if any modification happen.
@@ -112,6 +112,10 @@ Load on demand data into cache. This approach helps to reduce the inconsistency 
  - Map docker 6379 internal port to host machine 6379.
  - We should used Ip address of machine and 6379 as port to access redis from outside.
  - To access redis inside docker network , we can use 127.0.0.1 or localhost.
+
+#### 2. Circuit Breaker Pattern:
+  The Circuit Breaker pattern can prevent an application repeatedly trying to execute an operation that is likely to fail, allowing it to continue without waiting for the fault to be rectified or wasting CPU cycles while it determines that the fault is long lasting. The Circuit Breaker pattern also enables an application to detect whether the fault has been resolved. If the problem appears to have been rectified, the application can attempt to invoke the operation.
+Circuit Breaker Pattern 
  
  ----------------------------------------------------------------------------------------------
 
