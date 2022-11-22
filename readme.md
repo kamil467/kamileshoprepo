@@ -128,7 +128,15 @@ Circuit Breaker Pattern.
    - Open: - Service is failed and will not process further request until resolved.
    - Half-Open : Service is recovering only limited number of requests are allowed.
    - Closed : Service is fully recovered and able to handle all the request.
+
+    State Transistion:
+
+     - Open -> if number of failure threshold reached.
+
+     - Half-Open -> Open to Half-open run a timer to move the state. If service is still failing then move the state to Open.
      
+     - Closed -> Half-Open  to Closed , If number of success request threshold reached.
+
   ---------------------------------------------------------------------------------------
 
 
