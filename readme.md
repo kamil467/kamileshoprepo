@@ -139,6 +139,7 @@ Circuit Breaker Pattern.
      - Closed to Open :  Move the state , If number of failure request reached threshold value.
                          Count should be reset after specific time interval, there may be a situation if failure occurs occasaionally.
                          
+There should be an interface provided by Circuit Breaker to move the states for administrator purpose to take control of manual override.
   ---------------------------------------------------------------------------------------
 
 
