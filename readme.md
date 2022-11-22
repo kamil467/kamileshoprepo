@@ -92,13 +92,28 @@ Example:
 - Linq provides Skip and Take extensions for performing paging related operations.
 ----------------------------------------------------------------------------------------
 
-###### Docker Configuration:
+###### Docker Configuration: #18 and 176e8ea5
  1. DokcerFile - Used for building the application and produces image
  2. docker-compose.yml - provides a way for deploying multiple dockerized application in single file. images can be directly referred from docker repo or build during deployment. we can have separate docker-compose file for each environment.
 
  ###### Connecting local sql server from docker hosted application:
   - We can not directly connect from docker app to local sql server due to docker hosting network limitation. First , we need to ensure our local instance supports TCP/IP access and use IP address from docker instead of machine name.
  ---------------------------------------------------------------------
+### Cloud Design Patterns and Problems
+
+1. Cache -A Side Pattern:
+Load on demand data into cache. This approach helps to reduce the inconsistency between cached data and data store.
+ - Read-through : read data from datastore if no data found in cache.
+ - Write-through : invalidate data held in cache if any modification happen.
+
+ ##### Implementation : #19
+ - Redis database successfully configired and deplyed via docker.
+ - By default redis listen to 6379 port inside docker's default network.
+ - Map docker 6379 internal port to host machine 6379.
+ - We should used Ip address of machine and 6379 as port to access redis from outside.
+ - To access redis inside docker network , we can use 127.0.0.1 or localhost.
+ 
+ ----------------------------------------------------------------------------------------------
 
 
 
