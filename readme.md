@@ -140,6 +140,7 @@ Circuit Breaker Pattern.
                          Count should be reset after specific time interval, there may be a situation if failure occurs occasaionally.
                          
 There should be an interface provided by Circuit Breaker to move the states for administrator purpose to take control of manual override.
+  
   ---------------------------------------------------------------------------------------
 
 
