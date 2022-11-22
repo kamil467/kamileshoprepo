@@ -1,9 +1,12 @@
-﻿using KamilCataLogAPI.Model;
+﻿using CacheHelper.Operations;
+using KamilCataLogAPI.Model;
 using KamilCataLogAPI.Model.Configurations;
 using KamilCataLogAPI.Repository.Interface;
 using KamilCataLogAPI.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Pipelines.Sockets.Unofficial.Buffers;
+using StackExchange.Redis;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -43,13 +46,15 @@ namespace KamilCataLogAPI.Controllers
 
         private MessageQueueConfiguration _messageQueueConfiguration;
 
+        
+
+
         public CatalogController(ICatalogRepo catalogRepo,
             IOptions<CatalogAPISetting> options,
             IOptionsSnapshot<CatalogAPISetting> optionsSnapshot,
             IOptionsMonitor<CatalogAPISetting> optionsMonitor,
             IOptionsSnapshot<CatalogAPISwaggerConfigurationOptions> swaggeroCnfig,
             IOptionsSnapshot<MessageQueueConfiguration> messageQueueConfiguration
-
             )
         {
               this._catalogRepo = catalogRepo;
@@ -60,8 +65,6 @@ namespace KamilCataLogAPI.Controllers
             this._swaggerAPIV1 = swaggeroCnfig.Get(CatalogAPISwaggerConfigurationOptions.V1); // Named options
             this._swaggerAPIV2 = swaggeroCnfig.Get(CatalogAPISwaggerConfigurationOptions.V2);  // Named Options
             this._messageQueueConfiguration = messageQueueConfiguration.Value;
-            
-       
         }
 
         /// <summary>
@@ -166,8 +169,53 @@ namespace KamilCataLogAPI.Controllers
                 PageIndex = pageIndex,
                 PageSize = pageSize
             };
-
             return Ok(pageModel);
+        }
+
+        [HttpGet]
+        [Route("GetTopItem")]
+        [ProducesResponseType((int)HttpStatusCode.OK,Type =typeof(CatalogItem))]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> GetTopCatalogItem()
+        {
+            //Implemented Read-through 
+
+            var topCatalogItem = await this._catalogRepo
+                                 .GetTopCatalogItemAsync()
+                                 .ConfigureAwait(false);
+            if(topCatalogItem == null)
+                return NotFound();
+
+            return Ok(topCatalogItem);
+        }
+
+        /// <summary>
+        /// Put Request use NoContent (204) to send blank response.
+        /// </summary>
+        /// <param name="catalogItem"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("UpdateTopCatalogItem")]
+        [ProducesResponseType((int) HttpStatusCode.NoContent)]
+        [ProducesResponseType((int) HttpStatusCode.NotFound)]
+        [ProducesResponseType((int) HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> UpdateTopCataLogItem([FromBody] CatalogItem catalogItem)
+        {
+            // Implemented Write-Through Pattern
+
+            if(catalogItem == null)
+            {
+                return this.BadRequest();
+            }
+
+            var result = await this._catalogRepo
+                       .UpdateTopCatalogItem(catalogItem).ConfigureAwait(false);
+         
+            // return -404 if no update performed.
+            if (result == 0)
+                return NotFound();
+
+            return NoContent();
         }
     }
 }

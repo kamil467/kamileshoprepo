@@ -29,5 +29,9 @@ namespace KamilCataLogAPI.Repository.Interface
         IEnumerable<CatalogItem> GetCatalogItemsById(string ids);
 
         Task<IEnumerable<CatalogItem>> GetCatalogItemsByPaging( int pageSize, int pageIndex);
+
+        Task<CatalogItem> GetTopCatalogItemAsync();
+
+        Task<int> UpdateTopCatalogItem(CatalogItem catalogItem);
     }
 }

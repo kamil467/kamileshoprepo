@@ -1,3 +1,4 @@
+using CacheHelper.Operations;
 using KamilCataLogAPI.Extensions;
 using KamilCataLogAPI.Repository.Implementation;
 using KamilCataLogAPI.Repository.Interface;
@@ -42,6 +43,12 @@ namespace KamilCataLogAPI
             services.AddCatalogAPISettingConfiguration(this.Configuration);
 
             services.AddTransient<ICatalogRepo, CatalogRepo>();
+
+            //register redis connection multiplexer as a signleton instance
+            services.AddRedis(this.Configuration);
+
+          
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

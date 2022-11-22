@@ -2,11 +2,16 @@
 version: '3.4'
 
 services:
+ redis-db:
+  image: redis:${TAG:-latest}
+
  catalog-api:
      image: kamil-eshop/catalog-api:${TAG:-latest}  # image name in docker repo
      build:
       context: .
       dockerfile: KamilCataLogAPI/Dockerfile  #build catalog api through dockerfile.
      
+     depends_on:
+       - redis-db  #catalog-api container depends on redis-db
 
 
