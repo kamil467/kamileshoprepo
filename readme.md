@@ -133,7 +133,7 @@ Circuit Breaker Pattern.
 
      - Open -> if number of failure threshold reached.
 
-     - Half-Open -> Open to Half-open run a timer to move the state. If service is still failing then move the state to Open.
+     - Half-Open -> Open to Half-open run a timer to move the state. If service is still failing then move the state to Open. Or Circuit Breaker should be configured to ping the remote server in specific interval and based on the result to move the state to Half-Open.
      
      - Closed -> Half-Open  to Closed , If number of success request threshold reached.
      - Closed to Open :  Move the state , If number of failure request reached threshold value.
