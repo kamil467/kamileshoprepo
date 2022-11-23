@@ -4,9 +4,9 @@ version : '3.4'
 services:
    catalog-api:
     environment:  # Use Ip address of sql server machine.
-       - ConnectionStrings__CatalogDB=Server=192.168.1.46;Initial Catalog=Test;User Id=sa;Password=kamil467
+       - ConnectionStrings__CatalogDB=Server=192.168.1.34;Initial Catalog=Test;User Id=sa;Password=kamil467
        - MessageQueueConfiguration__Limit=300
-       - RedisConfiguration__server=192.168.1.46:6379
+       - RedisConfiguration__server=192.168.1.34:6379
        - RedisConfiguration__userName=
        - RedisConfiguration__password=redis-1234
     expose:   # port 80 of docker container.
@@ -19,3 +19,14 @@ services:
      - "6379"  # inside docker defaulkt network - redis accessed by 6379
     ports:
      - "6379:6379"  # bind machine port to docker port
+
+   eshop-ui:
+     environment:
+           - CatalogAPI__APIurl=http://catalog-api/api/v2/catalog
+           - CatalogAPI__GetCatalogItems=GetCataLogItemsByPagination
+           - CatalogAPI__GetTopItem=test
+     expose:
+           - "80"
+     ports:
+           - "5102:80"
+     
