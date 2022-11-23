@@ -101,7 +101,7 @@ Example:
  ---------------------------------------------------------------------
 ### Cloud Design Patterns and Problems
 
-1. Cache -A Side Pattern:
+#### 1. Cache -A Side Pattern:
 Load on demand data into cache. This approach helps to reduce the inconsistency between cached data and data store.
  - Read-through : read data from datastore if no data found in cache.
  - Write-through : invalidate data held in cache if any modification happen.
@@ -112,6 +112,41 @@ Load on demand data into cache. This approach helps to reduce the inconsistency 
  - Map docker 6379 internal port to host machine 6379.
  - We should used Ip address of machine and 6379 as port to access redis from outside.
  - To access redis inside docker network , we can use 127.0.0.1 or localhost.
+ 
+----------------------------------------------------------------------------------------
+#### 2. Circuit Breaker Pattern:
+  The Circuit Breaker pattern can prevent an application repeatedly trying to execute an operation that is likely to fail, allowing it to continue without waiting for the fault to be rectified or wasting CPU cycles while it determines that the fault is long lasting. The Circuit Breaker pattern also enables an application to detect whether the fault has been resolved. If the problem appears to have been rectified, the application can attempt to invoke the operation.
+Circuit Breaker Pattern.
+
+  - Cricuit Breaker is different from Retry Pattern , we can combine both of them.
+  - Retry pattern may send a request through Circuit Breaker.
+  - We will get additional advantages when combining these patterns.
+  - Circuit Breaker may send a message to caller if service failure is not transient.
+  - Further Retrie can be avoided.
+
+  ##### State
+   - Open: - Service is failed and will not process further request until resolved.
+   - Half-Open : Service is recovering only limited number of requests are allowed.
+   - Closed : Service is fully recovered and able to handle all the request.
+
+    State Transistion:
+
+     - Open -> if number of failure threshold reached.
+
+     - Half-Open -> Open to Half-open run a timer to move the state. If service is still failing then move the state to Open. Or Circuit Breaker should be configured to ping the remote server in specific interval and based on the result to move the state to Half-Open.
+     
+     - Closed -> Half-Open  to Closed , If number of success request threshold reached.
+     - Closed to Open :  Move the state , If number of failure request reached threshold value.
+                         Count should be reset after specific time interval, there may be a situation if failure occurs occasaionally.
+                         
+There should be an interface provided by Circuit Breaker to move the states for administrator purpose to take control of manual override.
+  
+  ---------------------------------------------------------------------------------------
+
+
+
+
+
  
  ----------------------------------------------------------------------------------------------
 
