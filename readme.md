@@ -98,6 +98,13 @@ Example:
 
  ###### Connecting local sql server from docker hosted application:
   - We can not directly connect from docker app to local sql server due to docker hosting network limitation. First , we need to ensure our local instance supports TCP/IP access and use IP address from docker instead of machine name.
+
+ ###### Docker tips for debugging from Visual Studio 
+ - Run dependency applications like API, redis, sql Server from docker.
+ - Visual Studio if you are debugging specific application using docker then you should use host ip address for connecting to external services.(VS run your app inside docker host).
+ 
+ - Visual Studio IIS express mode, you can use localhost to access the docker apps. 
+
  ---------------------------------------------------------------------
 ### Cloud Design Patterns and Problems
 
