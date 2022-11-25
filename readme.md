@@ -150,11 +150,32 @@ There should be an interface provided by Circuit Breaker to move the states for 
   
   ---------------------------------------------------------------------------------------
 
+#### 3. Compensating Transaction Pattern - Similar to Saga Pattern (Microservices)
+ - Our design should able to restore the state of the system if one of the steps failed.  
+ - Undo the work performed by a series of steps, which together define an eventually consistent operation, if one or more of the steps fail.
+ - This will be difficult problem when we embrace eventual consistency , data stored in multiple location. It is not an easy task to perform undo.
+ - Not only the data , some times a service can be invoked which maintain the state. So we need to restore that as well.
+ - We cannot expcet that we must perform mirror-opposite to restore the state. Some business rules has to be defined if going for undo. It may be less or more steps required than original steps.
+ - Data cannot be simply rolled back , other instances of current application may change it.
 
+ ##### Solution:
+ -  Our undo process should not simply looking for performing mirror opposite steps, rather it should be intelligent process combined with business rules + take account of concurrent instance changes to restore the state.
+ - Undo Process should itself embrace eventual consistency. So commands/Action for undo process must be `Idemmpotent`. We should able to execute repeately which should not impact.
+ - A common approach is `WorkFlow` Process - eg: Customer placing an order, initially it will be in pending state, another service which is responsibile for managing the warhouese(warhouse service), order service should talk to warhouse and based on response it will confirm the order. 
+ If no product available in warhouse then order service must inform the customer about this by cancelling the order.
 
+- Workflow approach , each steps will be stored. So in-future it will be reverted if required.
+- Some cases , it may not be possible revert the operation/state change done by original steps, in that case manual intervention required - a notification/alrt system should be placed.
 
+##### Issues and Considerations:
 
- 
+- Please remember that Redo process is not generailized one , it dependes on business context which tells how many steps should execute for restore that staste . System should know about original steps.(This information must be stored somewhere/business rules should guide on this.)
+- Each redo or compensating transaction must be idempotent. This will help in the cases when redo process itself fails.
+##### When to Use:
+- Please use Retry Pattern for transient failures, do not trigger compensating transaction.
+- more complexity involved when defining the steps for redo process, it is better to have retry or timeout based mechanism on original steps before falling into compensating transaction.
+- Please do not think about Compensating Transaction Pattern at first place, please avoid it.
+
  ----------------------------------------------------------------------------------------------
 
 
