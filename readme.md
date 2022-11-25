@@ -17,8 +17,20 @@ Below are the important points for Non-functional requirement which covers commo
 - Network Latency 
 - Maintainability
 - Availability
+- Disaster Recovery
 
+---------------------------------------------------------
+###### Role of Solution Architect
 
+- Analyze Functional Requirement
+- Define non functional requirement
+- Understand and engage stakeholders
+- Understand Constraints
+- Technology Selection
+- POC development
+- Solution Design and Delivery
+
+-------------------------------------------------------------------
 
 This is a study application which will cover following major technologies and concepts.
 - Cloud Native Development
