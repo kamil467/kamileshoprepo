@@ -1,6 +1,12 @@
 # EShopContainer 
 This project is based Microsoft's eShopContainer solution.
 
+###### Useful Links:
+- Polly - https://github.com/App-vNext/Polly
+- Microservices Design - https://microservices.io/patterns/index.html
+
+
+
 This is a study application which will cover following major technologies and concepts.
 - Cloud Native Development
 - Docker
