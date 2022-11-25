@@ -6,6 +6,19 @@ This project is based Microsoft's eShopContainer solution.
 - Microservices Design - https://microservices.io/patterns/index.html
 
 
+###### Non-Functional Requirement
+Below are the important points for Non-functional requirement which covers common for all applications.
+
+- Security & Compilance
+- Scalability
+- Reliability
+- Usability 
+- Performance
+- Network Latency 
+- Maintainability
+- Availability
+
+
 
 This is a study application which will cover following major technologies and concepts.
 - Cloud Native Development
