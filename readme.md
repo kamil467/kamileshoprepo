@@ -161,6 +161,7 @@ Circuit Breaker Pattern.
   - We will get additional advantages when combining these patterns.
   - Circuit Breaker may send a message to caller if service failure is not transient.
   - Further Retrie can be avoided.
+  - It is a good practice for using Cricuit Breaker for Transient Fault Handling
 
   ##### State
    - Open: - Service is failed and will not process further request until resolved.
