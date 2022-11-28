@@ -180,6 +180,19 @@ Circuit Breaker Pattern.
                          
 There should be an interface provided by Circuit Breaker to move the states for administrator purpose to take control of manual override.
   
+##### Best Practices and Approaches for Handling Transient Failures.
+- Retry and Circuit Breaker both are reactive patterns becuase they enable or activate based response from backend service. What happen if no response or delayed response ?
+- There may be situation that resources will be blocked or  increased load might occur before then.
+
+- We need to be proactive and to have more better approach for handling transient failures.
+
+- Timeout, Bulkead, Caching , Fallbacks are provides proactive patterns which hleps us to manager the failures more better way and provides more stability to our system.
+
+##### TimeOut
+
+
+
+
   ---------------------------------------------------------------------------------------
 
 #### 3. Compensating Transaction Pattern - Similar to Saga Pattern (Microservices)
