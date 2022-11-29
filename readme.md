@@ -233,7 +233,9 @@ Enable multiple concurrent consumers to process messages received on the same me
 - Multiple Consumer instances ensure that message processed consurrently.
 - Messages delivered atleast once.
 - Consumer instances operation should be done idempotent so that if message delivered more than once or during start/stop scenarios it will not impact the operations.
-- 
+- Producer and consumer must be a separate instance.
+- Some cases we may require to send the results back to producer after it was consumed.Azure provides a dedicated message reply queue for such scenarios.
+
 
 
 
