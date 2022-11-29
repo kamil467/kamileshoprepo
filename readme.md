@@ -252,6 +252,8 @@ Enable multiple concurrent consumers to process messages received on the same me
 
 - If we group two services , S1- does the task which requires scaling , S2- always receives low traffic : in this case we should not group S1 and S2.
 
+- For financial wise , if our resource capacity is high then we utilize it as much as possible. 
+
 
 
 
