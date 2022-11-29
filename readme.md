@@ -246,5 +246,14 @@ Enable multiple concurrent consumers to process messages received on the same me
 - Reduce resource cost and management.
 - It will increase resource utilization.
 
+##### Issues and Consideration:
+- A common approach is to look for tasks that have a similar profile concerning their scalability, lifetime, and processing requirements.
+- Grouping these items together allows them to scale as a unit. It means we merge multiple microservices into one as single service. This should happen based on their scalability , business requirement. 
+
+- If we group two services , S1- does the task which requires scaling , S2- always receives low traffic : in this case we should not group S1 and S2.
+
+
+
+
 
 
