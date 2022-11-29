@@ -7,7 +7,7 @@ This project is based Microsoft's eShopContainer solution.
 - Ocelot - https://ocelot.readthedocs.io/en/latest/introduction/gettingstarted.html
      - Ocelot provides Polly features but it is not much customizable.
      - Better approach is use Polly and Ocelot as a separate services.
-
+- elasticity : refers auto scaling
 ###### Non-Functional Requirement
 Below are the important points for Non-functional requirement which covers common for all applications.
 
