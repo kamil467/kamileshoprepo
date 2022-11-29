@@ -1,10 +1,12 @@
 # EShopContainer 
 This project is based Microsoft's eShopContainer solution.
 
-###### Useful Links:
+###### Useful Links and Tools:
 - Polly - https://github.com/App-vNext/Polly
 - Microservices Design - https://microservices.io/patterns/index.html
-
+- Ocelot - https://ocelot.readthedocs.io/en/latest/introduction/gettingstarted.html
+     - Ocelot provides Polly features but it is not much customizable.
+     - Better approach is use Polly and Ocelot as a separate services.
 
 ###### Non-Functional Requirement
 Below are the important points for Non-functional requirement which covers common for all applications.
