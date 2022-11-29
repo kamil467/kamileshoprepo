@@ -235,7 +235,16 @@ Enable multiple concurrent consumers to process messages received on the same me
 - Consumer instances operation should be done idempotent so that if message delivered more than once or during start/stop scenarios it will not impact the operations.
 - Producer and consumer must be a separate instance.
 - Some cases we may require to send the results back to producer after it was consumed.Azure provides a dedicated message reply queue for such scenarios.
+- Scaling should be available for messaging queueu , If one producer sends multiple request that there should be dedicated queue for that producer.
 
+---------------------------------------------------------------------------------------------------
+
+#### Compute Resource Consolidation Pattern.
+
+ Consolidate multiple tasks or operations into a single computational unit. This pattern can increase compute resource utilization, and reduce the costs and management overhead associated with performing compute processing in cloud-hosted applications.
+
+- Reduce resource cost and management.
+- It will increase resource utilization.
 
 
 
