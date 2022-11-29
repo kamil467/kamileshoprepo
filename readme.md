@@ -225,7 +225,15 @@ There should be an interface provided by Circuit Breaker to move the states for 
 
  ----------------------------------------------------------------------------------------------
 
+#### Competing Consumer Pattern
+Enable multiple concurrent consumers to process messages received on the same messaging channel. This pattern enables a system to process multiple messages concurrently to optimize throughput, to improve scalability and availability, and to balance the workload.
 
+- Spread the load
+- Also know Queue-based Load leveling Pattern
+- Multiple Consumer instances ensure that message processed consurrently.
+- Messages delivered atleast once.
+- Consumer instances operation should be done idempotent so that if message delivered more than once or during start/stop scenarios it will not impact the operations.
+- 
 
 
 
