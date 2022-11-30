@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KamilCataLogAPI", "KamilCat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CacheHelper", "CacheHelper\CacheHelper.csproj", "{EC602CD7-3BCC-49C9-8670-43BFE94A16C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EshopUI", "EshopUI\EshopUI.csproj", "{670D4BA3-AD9F-413E-8822-5CC71B5296C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EshopUI", "EshopUI\EshopUI.csproj", "{670D4BA3-AD9F-413E-8822-5CC71B5296C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShop.CircuitBreaker", "EShop.CircuitBreaker\EShop.CircuitBreaker.csproj", "{E3C8FA8A-1FA0-4F98-9384-4BF8ECF2D354}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EShop.CircuitBreaker", "EShop.CircuitBreaker\EShop.CircuitBreaker.csproj", "{E3C8FA8A-1FA0-4F98-9384-4BF8ECF2D354}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -15,17 +15,17 @@ services:
        - redis-db  #catalog-api container depends on redis-db
  eshop-ui:
      image: kamil-eshop/eshop-ui:${TAG:-latest}
-     build:
+     build: 
           context: .
           dockerfile: EshopUI/Dockerfile
      depends_on:
-       - catalog-api
+       - eshop-circuitbreaker
 
  eshop-circuitbreaker:
       image: kamil-eshop/eshop-circuitbreaker:${TAG:-latest}
-      build:
-        context: .
-        dockerfile: EShop.CircuitBreaker/Dockerfile
+      build: 
+          context: .
+          dockerfile: EShop.CircuitBreaker/Dockerfile
 
 
 

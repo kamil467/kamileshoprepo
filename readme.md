@@ -8,6 +8,8 @@ This project is based Microsoft's eShopContainer solution.
      - Ocelot provides Polly features but it is not much customizable.
      - Better approach is use Polly and Ocelot as a separate services.
 - elasticity : refers auto scaling
+- Reselient Patterns and Approaches : https://github.com/peter-csala/resilience-service-design/blob/main/resilience.md#tim
+
 ###### Non-Functional Requirement
 Below are the important points for Non-functional requirement which covers common for all applications.
 
@@ -191,9 +193,12 @@ There should be an interface provided by Circuit Breaker to move the states for 
 - Timeout, Bulkead, Caching , Fallbacks are provides proactive patterns which hleps us to manager the failures more better way and provides more stability to our system.
 
 ##### TimeOut
-
-
-
+ - Polly provides options for adding timeout to each request.
+ 
+###### With Ocelot:
+  - Ocelot provides options to include Polly but it is not customizable though.
+  - Best approach here to we have to right custom Polly based policies and fuse into Ocelot middleware.
+  - Ocelot provides DelegatingHandler which help us to execute logics during Http calls.
 
   ---------------------------------------------------------------------------------------
 

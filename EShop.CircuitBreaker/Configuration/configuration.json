@@ -1,0 +1,23 @@
+
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/v2/catalog/GetCataLogItemsByPagination",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5101
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v2/catalog/GetCataLogItemsByPagination",
+      "UpstreamHttpMethod": [ "GET" ],
+      //"QoSOptions": {
+      //  "ExceptionsAllowedBeforeBreaking": 4,
+      //  "DurationOfBreak": 5000,
+      //  "TimeoutValue": 5000
+      //}
+    }
+  ]
+
+}

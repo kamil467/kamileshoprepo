@@ -10,6 +10,7 @@ using StackExchange.Redis;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -144,6 +145,7 @@ namespace KamilCataLogAPI.Controllers
             [FromQuery] int pageSize =10, [FromQuery] int pageIndex = 0,string ids =null
             )
         {
+            Thread.Sleep(300000); // to test Polly Timeout Framework
             // ids passed
             if(!string.IsNullOrEmpty(ids))
             {
