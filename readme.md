@@ -9,6 +9,7 @@ This project is based Microsoft's eShopContainer solution.
      - Better approach is use Polly and Ocelot as a separate services.
 - elasticity : refers auto scaling
 - Reselient Patterns and Approaches : https://github.com/peter-csala/resilience-service-design/blob/main/resilience.md#tim
+- Cancellation Token :- https://medium.com/@mitesh_shah/a-deep-dive-into-c-s-cancellationtoken-44bc7664555f#:~:text=NET%20provides%202%20classes%2C%20CancellationTokenSource,all%20copies%20of%20that%20token.
 
 ###### Non-Functional Requirement
 Below are the important points for Non-functional requirement which covers common for all applications.
@@ -197,8 +198,20 @@ There should be an interface provided by Circuit Breaker to move the states for 
  
 ###### With Ocelot:
   - Ocelot provides options to include Polly but it is not customizable though.
-  - Best approach here to we have to right custom Polly based policies and fuse into Ocelot middleware.
+  - Best approach here to we have to write custom Polly based policies and fuse into Ocelot middleware.
   - Ocelot provides DelegatingHandler which help us to execute logics during Http calls.
+      - We should create custom delegateHandler and add the handler to Ocelot, delegating handlers are used for
+       passing http request from one hanler to another handler.
+ - Optimistic : 
+             - honor ccancellation token- token issued to cancel the operation once timeout expired.
+             - Anyway polly internally creates one cacncellation token and cancel it after timeout expired.
+             - Whatever we are passed from outside, polly will check if cancellation requested or not. It cannot cancel it since it was created from outside.
+
+ - 
+
+
+       
+
 
   ---------------------------------------------------------------------------------------
 
@@ -258,6 +271,34 @@ Enable multiple concurrent consumers to process messages received on the same me
 - If we group two services , S1- does the task which requires scaling , S2- always receives low traffic : in this case we should not group S1 and S2.
 
 - For financial wise , if our resource capacity is high then we utilize it as much as possible. 
+
+--------------------------------------------------------------------------------------
+
+#### Command and Query Responsibility Segregation Pattern
+
+- It help us separate Database into Read Store DB and Write Store DB.
+- Reduce Conflicts while updating the database due to Optmistic locking.
+- We can scale the service independently, most of the time the scaling required for read work loads.
+- Enhanced security since we separated read and write models.
+- Read Store and Write Store may access same physical store but as a best pratice we should different physical stores,
+  this will maximize the performaance, scalability and secirity as well.
+- We should embrace eventual consistency.
+- As an architect first only apply this pattern to limited section and observe the result, If ok then expand further.
+- To get best out of it , CQRS pattern should be used with Event Sourcing
+
+
+
+##### Optimistic Locking : 
+       - we usually read data along with version number 
+         and write back if version numbers are match , if not we abort the transaction
+         this is known as optimistic locking
+##### Pessimistic Locking:
+       - We acquire the lock first , this will prevent dirty read to be happen.
+
+      
+-------------------------------------------------------------------------------
+
+#### Event Sourcing Pattern
 
 
 
