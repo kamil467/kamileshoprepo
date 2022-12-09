@@ -207,12 +207,7 @@ There should be an interface provided by Circuit Breaker to move the states for 
              - Anyway polly internally creates one cacncellation token and cancel it after timeout expired.
              - Whatever we are passed from outside, polly will check if cancellation requested or not. It cannot cancel it since it was created from outside.
 
- - 
-
-
-       
-
-
+ -
   ---------------------------------------------------------------------------------------
 
 #### 3. Compensating Transaction Pattern - Similar to Saga Pattern (Microservices)
@@ -299,6 +294,26 @@ Enable multiple concurrent consumers to process messages received on the same me
 -------------------------------------------------------------------------------
 
 #### Event Sourcing Pattern
+- Use an append-only store to record the full series of events that describe a
+ctions taken on data in a domain, rather than storing just the current state, 
+so that the store can be used to materialize the domain objects.
+
+- It will help us to avoid merge conflicts but How ? current state of the application will be updated as series
+  of events like AddItemtoCart, removeItem, UpdateItem etc. Since we maintain the series of events , it should 
+  be easy for us to reply the events and update the write store without merge conflicts.
+
+- Also it will help us in implementing Compensating Transaction patter where we reacord rollback setp for each operation.
+
+- But conflicts still be handled
+
+##### Suits:
+- Where we embrace eventual consistency.
+- Avoid merge conflicts
+- Using with CQRS pattern.
+
+
+###### Not Suits:
+  - Where we require consistency and real time update to views.
 
 
 
