@@ -145,7 +145,7 @@ namespace KamilCataLogAPI.Controllers
             [FromQuery] int pageSize =10, [FromQuery] int pageIndex = 0,string ids =null
             )
         {
-            Thread.Sleep(300000); // to test Polly Timeout Framework
+           // Thread.Sleep(300000); // to test Polly Timeout Framework
             // ids passed
             if(!string.IsNullOrEmpty(ids))
             {

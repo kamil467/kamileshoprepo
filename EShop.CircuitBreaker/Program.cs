@@ -32,14 +32,14 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddSingleton<PollyWithCircuitBreaker>(); // It should be a singleton instance
+builder.Services.AddSingleton<PollyCircuitBreakerAndTimeOut>(); 
 // Ocelot with Polly
 builder.Services
     .AddOcelot(builder.Configuration)
-    .AddDelegatingHandler<PollyWithTimeOutDelegatingHandler>(true); // Polly based Timeout Policy
-    // add circuit breaker.
-    // add retry
-
+      //.AddDelegatingHandler<PollyWithTimeOutDelegatingHandler>(true) // Polly based Timeout Policy
+      //.AddDelegatingHandler<PollyWithCircuitBreaker>(true)
+      .AddDelegatingHandler<PollyCircuitBreakerAndTimeOut>(true);
  
 
 var app = builder.Build();
