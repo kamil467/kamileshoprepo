@@ -207,7 +207,7 @@ There should be an interface provided by Circuit Breaker to move the states for 
              - Anyway polly internally creates one cacncellation token and cancel it after timeout expired.
              - Whatever we are passed from outside, polly will check if cancellation requested or not. It cannot cancel it since it was created from outside.
 
- - Ocelot with Customized Polly Policeis : 7c50319cc469abe4a5dce5b3ca90c559ed406298 
+ - Ocelot with Customized Polly Policeis : f430b4c70115056a1cd18a7872dd275416795bc0 
  
   ---------------------------------------------------------------------------------------
 
