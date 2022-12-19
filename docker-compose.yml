@@ -14,7 +14,7 @@ services:
      depends_on:
        - redis-db  #catalog-api container depends on redis-db
  eshop-ui:
-     image: kamil-eshop/eshop-ui:${TAG:-latest}
+     image: kamil-eshop/eshop-ui:${TAG:-test}
      build: 
           context: .
           dockerfile: EshopUI/Dockerfile

@@ -4,9 +4,9 @@ version : '3.4'
 services:
    catalog-api:
     environment:  # Use Ip address of sql server machine.
-       - ConnectionStrings__CatalogDB=Server=192.168.1.40;Initial Catalog=Test;User Id=sa;Password=kamil467
+       - ConnectionStrings__CatalogDB=Server=192.168.1.37;Initial Catalog=Test;User Id=sa;Password=kamil467
        - MessageQueueConfiguration__Limit=300
-       - RedisConfiguration__server=192.168.1.40:6379
+       - RedisConfiguration__server=192.168.1.37:6379
        - RedisConfiguration__userName=
        - RedisConfiguration__password=redis-1234
     expose:   # port 80 of docker container.
