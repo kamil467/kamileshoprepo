@@ -1,4 +1,6 @@
-﻿namespace KamilCataLogAPI.Model
+﻿using System.Collections.Generic;
+
+namespace KamilCataLogAPI.Model
 {
     /// <summary>
     /// CataLogType Class.
@@ -13,6 +15,10 @@
         /// <summary>
         /// Get or Set Type;
         /// </summary>
-        public virtual string Type { get; set; }
+        public virtual string Name { get; set; }
+
+        #region Navigational Property
+        public virtual ICollection<CatalogItem> CatalogItems { get; set; }
+        #endregion
     }
 }

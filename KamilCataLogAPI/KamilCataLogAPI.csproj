@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.32" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.29" />
@@ -19,6 +20,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CacheHelper\CacheHelper.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\Qburst\source\repos\KamilEShopContainer\KamilCataLogAPI\DBContext\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\Qburst\source\repos\KamilEShopContainer\KamilCataLogAPI\DBContext\.editorconfig" />
   </ItemGroup>
 
 

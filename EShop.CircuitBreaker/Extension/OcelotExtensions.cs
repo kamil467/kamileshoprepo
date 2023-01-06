@@ -91,7 +91,7 @@ namespace EShop.CircuitBreaker.Extension
             //breakerPolicy = Policy
             //           .Handle<Exception>()
             //                   .CircuitBreakerAsync(
-            //            exceptionsAllowedBeforeBreaking: 5, // circuit will break after 2 failure attempts
+            //            exceptionsAllowedBeforeBreaking: 5, // circuit will break after 5 failure attempts
             //              durationOfBreak: TimeSpan.FromMinutes(5), // circuit will be reset after 5 minutes
             //              onBreak: onBreakAction,
             //              onReset: onReset

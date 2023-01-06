@@ -2,7 +2,7 @@
 {
   "Routes": [
     {
-      "DownstreamPathTemplate": "/api/v2/catalog/GetCataLogItemsByPagination",
+      "DownstreamPathTemplate": "/api/v2/catalog/GetCatalogItemByBrand",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -10,8 +10,8 @@
           "Port": 5101
         }
       ],
-      "UpstreamPathTemplate": "/api/v2/catalog/GetCataLogItemsByPagination",
-      "UpstreamHttpMethod": [ "GET" ],
+      "UpstreamPathTemplate": "/api/Catalog/GetItemByBrand",
+      "UpstreamHttpMethod": [ "GET" ]
       //"QoSOptions": {
       //  "ExceptionsAllowedBeforeBreaking": 4,
       //  "DurationOfBreak": 5000,

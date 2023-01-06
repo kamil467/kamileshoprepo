@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KamilCataLogAPI.Model
@@ -6,14 +7,11 @@ namespace KamilCataLogAPI.Model
     /// <summary>
     /// CataLogItem class
     /// </summary>
-    [Table("CatalogItem")]
     public class CatalogItem
     {
         /// <summary>
         /// Get or Set Id.
         /// </summary>
-        [Key]
-        [Column("Id")]
         public virtual int  Id { get; set; }
 
         /// <summary>
@@ -29,26 +27,30 @@ namespace KamilCataLogAPI.Model
         /// <summary>
         /// Get or Set Price.
         /// </summary>
-        public virtual decimal? Price { get; set; }
+        public virtual Nullable<decimal> Price { get; set; }
 
-        /// <summary>
-        /// Get or set CatalogType Id.
-        /// </summary>
-        public virtual int? CatalogTypeId { get; set; }
 
-        /// <summary>
-        /// Get or Set CataLogType.
-        /// </summary>
-      //  public virtual CatalogType CatalogType { get; set; }
+        public virtual string PictureFileName { get; set; }
 
-        /// <summary>
-        /// Get or Set CatalogBrandId.
-        /// </summary>
-        public virtual int? CatalogBrandId { get; set; }
+        public virtual string PictureUri { get; set; }
 
-        /// <summary>
-        /// Get or Set CatalogBrand.
-        /// </summary>
-        // public virtual CataLogBrand CataLogBrand { get; set; }
+        public virtual Nullable<int> AvailableStock { get; set; }
+
+        public virtual Nullable<int> RestockThreshold { get; set; }
+        
+        public virtual Nullable<int> MaxStockThreshold { get; set; }
+
+        public virtual bool OnReorder { get; set; }
+
+        public virtual Nullable<int> BrandId { get; set; }
+
+        public virtual Nullable<int> TypeId { get; set; }
+
+        #region Navigational Properties
+        public CataLogBrand CataLogBrand { get; set; }
+
+        public CatalogType CatalogType { get; set; }
+        #endregion
+
     }
 }

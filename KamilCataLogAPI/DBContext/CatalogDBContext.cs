@@ -32,5 +32,12 @@ namespace KamilCataLogAPI.DBContext
         {
 
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new CatalogBrandEntityCOnfiguration());
+            modelBuilder.ApplyConfiguration(new CatalogItemEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new CatalogTypeEntityConfiguration());
+        }
     }
 }

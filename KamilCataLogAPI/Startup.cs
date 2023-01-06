@@ -1,7 +1,7 @@
 using CacheHelper.Operations;
 using KamilCataLogAPI.Extensions;
-using KamilCataLogAPI.Repository.Implementation;
-using KamilCataLogAPI.Repository.Interface;
+using KamilCataLogAPI.QueryObjects;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -42,10 +42,10 @@ namespace KamilCataLogAPI
             // uses Option Builder and Services.Configure approaches
             services.AddCatalogAPISettingConfiguration(this.Configuration);
 
-            services.AddTransient<ICatalogRepo, CatalogRepo>();
-
+            services.AddTransient<ICatalogService, CatalogConcrete>();
+            services.AddIdentityServerConfiguration();
             //register redis connection multiplexer as a signleton instance
-            services.AddRedis(this.Configuration);
+          //  services.AddRedis(this.Configuration); -- commenting this is for development purpose.
 
           
 
@@ -71,8 +71,9 @@ namespace KamilCataLogAPI
                     //  // Swagger metadata json url : JSON gets generated automatically every we visit this url.
                 }
             });
-
-            app.UseRouting();
+            app.UseAuthentication();
+           
+            app.UseRouting();  // this line not required in .NET 6
 
             app.UseAuthorization();
 

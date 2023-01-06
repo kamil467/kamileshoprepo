@@ -1,7 +1,9 @@
 ﻿using CacheHelper.Operations;
 using KamilCataLogAPI.Model;
 using KamilCataLogAPI.Model.Configurations;
-using KamilCataLogAPI.Repository.Interface;
+using KamilCataLogAPI.Model.DTO;
+using KamilCataLogAPI.QueryObjects;
+
 using KamilCataLogAPI.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -24,7 +26,7 @@ namespace KamilCataLogAPI.Controllers
     [ApiController]
     public class CatalogController : ControllerBase
     {
-        private ICatalogRepo _catalogRepo;
+        private ICatalogService catalogService;
 
         /// <summary>
         /// IOption<CatalogAPISetting> Singleton Instance.
@@ -50,15 +52,16 @@ namespace KamilCataLogAPI.Controllers
         
 
 
-        public CatalogController(ICatalogRepo catalogRepo,
+        public CatalogController(
             IOptions<CatalogAPISetting> options,
             IOptionsSnapshot<CatalogAPISetting> optionsSnapshot,
             IOptionsMonitor<CatalogAPISetting> optionsMonitor,
             IOptionsSnapshot<CatalogAPISwaggerConfigurationOptions> swaggeroCnfig,
-            IOptionsSnapshot<MessageQueueConfiguration> messageQueueConfiguration
+            IOptionsSnapshot<MessageQueueConfiguration> messageQueueConfiguration,
+            ICatalogService catalogService 
             )
         {
-              this._catalogRepo = catalogRepo;
+            this.catalogService = catalogService;
             this.CatalogAPISetting = options.Value; // Standard singleton services
             this.CatalogAPISetting_SnapShot = optionsSnapshot.Value;
             this.CatalogAPISetting_Monitor = optionsMonitor;
@@ -77,147 +80,28 @@ namespace KamilCataLogAPI.Controllers
             // your logic goes here.
         }
 
-
-        [HttpGet("GetCataLogItems/{ids}")]
-        public IEnumerable<CatalogItem> GetCataLogItems(string ids = null)
-        {
-           var result =  this._catalogRepo.GetCatalogItemsById(ids).ToList(); // deferred execution happen here before sending response.
-            return result;
-        }
-
-
-
-        // GET: api/<CatalogController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        [Route("")]
+        public string Index()
         {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<CatalogController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<CatalogController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<CatalogController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<CatalogController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
-
-        //this one will be served from v1 while remaining endpoints served from v2 for this controller.
-        /// api/v1/catalog/GetNumericData
-        [MapToApiVersion("1.0")]
-        [HttpGet("GetNumericData")]
-        /// <summary>
-        /// returns numeric data.
-        /// </summary>
-        /// <returns>1</returns>
-        public int GetNumericData()
-        {
-            return 1;
-        }
-
-        /// <summary>
-        /// Returns paginated data.
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("GetCataLogItemsByPagination")]
-        [ProducesResponseType((int)HttpStatusCode.OK,Type = typeof(IEnumerable<CatalogItem>))]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(PaginatedItemsViewModel<CatalogItem>))]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetCataLogItems(
-            [FromQuery] int pageSize =10, [FromQuery] int pageIndex = 0,string ids =null
-            )
-        {
-           // Thread.Sleep(300000); // to test Polly Timeout Framework
-            // ids passed
-            if(!string.IsNullOrEmpty(ids))
-            {
-                var dataById = this._catalogRepo.GetCatalogItemsById(ids);
-                
-                // if no data for given IDS
-                if(!dataById.Any())
-                {
-                    return BadRequest("Please provide valid IDS");
-                }
-
-                return Ok(dataById);
-            }
-
-            // no ids passed then take pagination.
-
-            var catData = await this._catalogRepo.GetCatalogItemsByPaging(pageSize, pageIndex)
-                        .ConfigureAwait(false);
-
-            var pageModel = new PaginatedItemsViewModel<CatalogItem>
-            {
-                Items = catData,
-                PageIndex = pageIndex,
-                PageSize = pageSize
-            };
-            return Ok(pageModel);
+            return "Catalo]gAPI";
         }
 
         [HttpGet]
-        [Route("GetTopItem")]
-        [ProducesResponseType((int)HttpStatusCode.OK,Type =typeof(CatalogItem))]
+        [Route("GetCatalogItemByBrand")]
+        [ProducesResponseType(typeof(IEnumerable<CatalogItemDTO>),(int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public async Task<IActionResult> GetTopCatalogItem()
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public ActionResult<IEnumerable<CatalogItemDTO>> GetCatalogItemsByBrand(int brandId)
         {
-            //Implemented Read-through 
+            if (brandId == 0)
+                return BadRequest();
 
-            var topCatalogItem = await this._catalogRepo
-                                 .GetTopCatalogItemAsync()
-                                 .ConfigureAwait(false);
-            if(topCatalogItem == null)
+            var result = this.catalogService.GetCatalogItemsByBrand(brandId).ToList();
+            if (!result.Any())
                 return NotFound();
 
-            return Ok(topCatalogItem);
-        }
-
-        /// <summary>
-        /// Put Request use NoContent (204) to send blank response.
-        /// </summary>
-        /// <param name="catalogItem"></param>
-        /// <returns></returns>
-        [HttpPut]
-        [Route("UpdateTopCatalogItem")]
-        [ProducesResponseType((int) HttpStatusCode.NoContent)]
-        [ProducesResponseType((int) HttpStatusCode.NotFound)]
-        [ProducesResponseType((int) HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> UpdateTopCataLogItem([FromBody] CatalogItem catalogItem)
-        {
-            // Implemented Write-Through Pattern
-
-            if(catalogItem == null)
-            {
-                return this.BadRequest();
-            }
-
-            var result = await this._catalogRepo
-                       .UpdateTopCatalogItem(catalogItem).ConfigureAwait(false);
-         
-            // return -404 if no update performed.
-            if (result == 0)
-                return NotFound();
-
-            return NoContent();
+            return Ok(result);
         }
     }
 }
