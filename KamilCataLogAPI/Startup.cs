@@ -43,9 +43,12 @@ namespace KamilCataLogAPI
             services.AddCatalogAPISettingConfiguration(this.Configuration);
 
             services.AddTransient<ICatalogService, CatalogConcrete>();
-            services.AddIdentityServerConfiguration();
+            
+            //Identity Server Configuration
+            // services.AddIdentityServerConfiguration(); enable when required
+           
             //register redis connection multiplexer as a signleton instance
-          //  services.AddRedis(this.Configuration); -- commenting this is for development purpose.
+          //  services.AddRedis(this.Configuration); -- commenting this is for development purpose. enable when required
 
           
 
