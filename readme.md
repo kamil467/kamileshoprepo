@@ -1,5 +1,6 @@
 # EShopContainer 
 This project is based Microsoft's eShopContainer solution.
+Test commit
 
 ###### Useful Links and Tools:
 - Polly - https://github.com/App-vNext/Polly
