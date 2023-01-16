@@ -16,14 +16,25 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3   # checkout main repo branch
-    - name: Setup .NET
+    - name: Setup .NET Core 3.1
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 3.1.x
+    
+    - name: Setup .NET 6 
+      uses: actions/setup-dotnet@v3
+      with:
+       dotnet-version: 6.0.x
+    
     - name: Restore dependencies
       run: dotnet restore "KamilCataLogAPI/KamilCataLogAPI.csproj"  # restore catalog api project
+    
     - name: Build
       run: dotnet build "KamilCataLogAPI/KamilCataLogAPI.csproj" --no-restore  # build catalog api project
+    
+    - name: Test
+      run: dotnet test "KamilCataLogAPI/Test.CatalogAPI.csproj" -no-build -verbosity normal
+    
     - name: Publish
       run: dotnet publish KamilCataLogAPI/KamilCataLogAPI.csproj -c Release -o publish/kamilcatalogapi   # publishes build artifact into publish/kamilcatalogapi folder on hosted runner
     - name: Upload a Build Artifact
