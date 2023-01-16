@@ -33,7 +33,7 @@ jobs:
       run: dotnet build "KamilCataLogAPI/KamilCataLogAPI.csproj" --no-restore  # build catalog api project
     
     - name: Test
-      run: dotnet test "Test.CatalogAPI.csproj"  --no-build --verbosity normal
+      run: dotnet test "Test.CatalogAPI/Test.CatalogAPI.csproj"  --no-build --verbosity normal
     
     - name: Publish
       run: dotnet publish KamilCataLogAPI/KamilCataLogAPI.csproj -c Release -o publish/kamilcatalogapi   # publishes build artifact into publish/kamilcatalogapi folder on hosted runner
