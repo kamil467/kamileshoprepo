@@ -16,27 +16,35 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3   # checkout main repo branch
+    
+      # install 3.1 runtime on runner
     - name: Setup .NET Core 3.1
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 3.1.x
-    
+    #install .NET 6 on runner
     - name: Setup .NET 6 
       uses: actions/setup-dotnet@v3
       with:
        dotnet-version: 6.0.x
     
+    # restoring the dependencies of KamilCatalog API project.
     - name: Restore dependencies
       run: dotnet restore "KamilCataLogAPI/KamilCataLogAPI.csproj"  # restore catalog api project
     
+    # building the project
     - name: Build
       run: dotnet build "KamilCataLogAPI/KamilCataLogAPI.csproj" --no-restore  # build catalog api project
     
+    # running testing project.
     - name: Test
       run: dotnet test "Test.CatalogAPI/Test.CatalogAPI.csproj"  --no-build --verbosity normal
     
+    # publish the project inside runner
     - name: Publish
       run: dotnet publish KamilCataLogAPI/KamilCataLogAPI.csproj -c Release -o publish/kamilcatalogapi   # publishes build artifact into publish/kamilcatalogapi folder on hosted runner
+    
+    # upload a build artifact to folder inside runner
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.2
       with:
