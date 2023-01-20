@@ -42,7 +42,7 @@ jobs:
     
    # copy code coverage to desired path
     - name: Copy Coverage to Predictable Location
-      run: cp coverage/*/coverage.cobertura.xml coverage/coverage.cobertura.xml
+      run: cp coverage/**/coverage.cobertura.xml coverage/coverage.cobertura.xml
    
    # coverage summary report
     - name: Code Coverage Summary Report
