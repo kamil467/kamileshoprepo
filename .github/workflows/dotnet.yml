@@ -38,7 +38,22 @@ jobs:
     
     # running testing project.
     - name: Test
-      run: dotnet test "Test.CatalogAPI/Test.CatalogAPI.csproj"  /p:CollectCoverage=true --no-build  --verbosity normal 
+      run: dotnet test "Test.CatalogAPI/Test.CatalogAPI.csproj"  /p:CollectCoverage=true  /p:CoverletOutput='./coverage/' --no-build  --verbosity normal 
+    
+    # publish code coverage report
+    - name: Publish Coverlet Code Coverage Report
+      uses: irongut/CodeCoverageSummary@v1.3.0
+      with:
+        filename: coverage/**/coverage.cobertura.xml
+        badge: true
+        fail_below_min: true
+        format: markdown
+        hide_branch_rate: false
+        hide_complexity: true
+        indicators: true
+        output: both
+        thresholds: '60 80'
+        path: code-coverage-results.md
     
     # publish the project inside runner
     - name: Publish
