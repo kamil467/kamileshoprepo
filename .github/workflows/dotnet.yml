@@ -38,7 +38,7 @@ jobs:
     
     # running testing project.
     - name: Test
-      run: dotnet test "Test.CatalogAPI/Test.CatalogAPI.csproj"   --no-build  --verbosity normal /p:CollectCoverage=true /p:CoverletOutput='./coverage/'
+      run: dotnet test "Test.CatalogAPI/Test.CatalogAPI.csproj"   --no-build  --verbosity normal --collect:"XPlat Code Coverage" -logger trx --results-directory coverage
     
    # copy code coverage to desired path
     - name: Copy Coverage to Predictable Location
