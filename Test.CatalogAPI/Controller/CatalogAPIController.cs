@@ -3,6 +3,7 @@ using KamilCataLogAPI.Model.Configurations;
 using KamilCataLogAPI.Model.DTO;
 using KamilCataLogAPI.QueryObjects;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -24,7 +25,7 @@ namespace Test.CatalogAPI.Controller
         private Mock<IOptionsMonitor<CatalogAPISetting>> _mockMonitorOptions;
         private Mock<IOptionsSnapshot<CatalogAPISwaggerConfigurationOptions>> _mockSwaggerConfiguration;
         private Mock<IOptionsSnapshot<MessageQueueConfiguration>> _mockMessageQueueConfiguration;
-
+        private Mock<ILogger<CatalogController>> logger;
         /// <summary>
         /// Runs once per test case.
         /// </summary>
@@ -37,6 +38,7 @@ namespace Test.CatalogAPI.Controller
             _mockMonitorOptions = new Mock<IOptionsMonitor<CatalogAPISetting>>();
             _mockSnapShotOptions = new Mock<IOptionsSnapshot<CatalogAPISetting>>();
             _mockSwaggerConfiguration = new Mock<IOptionsSnapshot<CatalogAPISwaggerConfigurationOptions>>();
+            logger = new Mock<ILogger<CatalogController>>();
         }
 
 
@@ -73,7 +75,8 @@ namespace Test.CatalogAPI.Controller
                                             this._mockMonitorOptions.Object,
                                             this._mockSwaggerConfiguration.Object,
                                             this._mockMessageQueueConfiguration.Object,
-                                            this._mockCatalogService.Object);
+                                            this._mockCatalogService.Object,
+                                            logger.Object);
 
             var result = catalogController.GetCatalogItemsByBrand(1);
 
@@ -101,7 +104,8 @@ namespace Test.CatalogAPI.Controller
                                       this._mockMonitorOptions.Object,
                                       this._mockSwaggerConfiguration.Object,
                                       this._mockMessageQueueConfiguration.Object,
-                                      this._mockCatalogService.Object);
+                                      this._mockCatalogService.Object,
+                                      logger.Object);
 
             var result = catalogController.GetCatalogItemsByBrand(0);
 
@@ -132,7 +136,8 @@ namespace Test.CatalogAPI.Controller
                                       this._mockMonitorOptions.Object,
                                       this._mockSwaggerConfiguration.Object,
                                       this._mockMessageQueueConfiguration.Object,
-                                      this._mockCatalogService.Object);
+                                      this._mockCatalogService.Object,
+                                      logger.Object);
 
             var result = catalogController.GetCatalogItemsByBrand(1);
 

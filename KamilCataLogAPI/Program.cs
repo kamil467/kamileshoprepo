@@ -15,13 +15,19 @@ namespace KamilCataLogAPI
     {
         public static void Main(string[] args)
         {
-            LoggingConfiguration.GetSerilogger();
+            Log.Logger = LoggingConfiguration.GetSerilogger();
            CreateHostBuilder(args).Build().Run();
 
            
 
         }
 
+        /// <summary>
+        /// WebHost builder.
+        /// serilog logging provider instance attached
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args).UseSerilog()
                 .ConfigureWebHostDefaults(webBuilder =>
