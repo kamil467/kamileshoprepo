@@ -38,7 +38,7 @@ jobs:
     
     # running testing project.
     - name: Test
-      run: dotnet test "Test.CatalogAPI/Test.CatalogAPI.csproj"  /p:CollectCoverage=true  /p:CoverletOutput='./coverage/' --no-build  --verbosity normal 
+      run: dotnet test "Test.CatalogAPI/Test.CatalogAPI.csproj"  /p:CollectCoverage=true  /p:CoverletOutput='./coverage' --no-build  --verbosity normal 
     
     # publish code coverage report
     - name: Publish Coverlet Code Coverage Report
