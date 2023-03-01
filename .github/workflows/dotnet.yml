@@ -65,14 +65,22 @@ jobs:
     
     # Build Docker Image
     - name: Build Docker Image
-      run: docker build . --file KamilCataLogAPI/Dockerfile --tag catalogapi:$(date +%s)
+      run: docker build . --file KamilCataLogAPI/Dockerfile --tag  ${{secrets.REGISTRY_LOGIN_SERVER }}/catalogapi:${{ github.sha }}
     
     # **********************************************Commented all below working code ************************************
     # publish the project inside runner : working code
     # - name: Publish
      # run: dotnet publish KamilCataLogAPI/KamilCataLogAPI.csproj -c Release -o publish/kamilcatalogapi   # publishes build artifact into publish/kamilcatalogapi folder on hosted runner
     
-
+    # Push Docker Image to ACR
+    - name: Push Docker Image to ACR
+      uses: azure/docker-login@v1
+      with: 
+        login-server: ${{secrets.REGISTRY_LOGIN_SERVER}}
+        username: ${{secrets.REGISTRY_USERNAME}}
+        password: ${{secrets.REGISTRY_PASSWORD}}
+        run: docker push ${{secrets.REGISTRY_LOGIN_SERVER }}/catalogapi:${{ github.sha }}
+    
     
     # upload a build artifact to folder inside runner
    # - name: Upload a Build Artifact
