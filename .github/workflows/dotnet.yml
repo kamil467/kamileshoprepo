@@ -4,10 +4,12 @@
 name: CatalogAPI
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+# commenting branch push trigger
+ # push:
+  #  branches: [ "main" ]
+  #pull_request:
+   # branches: [ "main" ]
+    workflow_dispatch:
 
 jobs:
   build:
