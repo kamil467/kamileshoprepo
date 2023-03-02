@@ -317,6 +317,33 @@ so that the store can be used to materialize the domain objects.
 ###### Not Suits:
   - Where we require consistency and real time update to views.
 
+---------------------------------------------------------------
+## Azure Deployment From GitHub.
+
+#### 1. Container based deployment involving ACR
+Steps :
+1 - Build containers using GitHub Action Workflow.
+2 - Push containers to Azure container registry.
+
+step 1 and 2 can be an automated flow.
+
+3 - Configure ACR task in Azure for deploying the container whenever new container pushed or manually deploy the container in App service.
+
+#### 2. Container based deployment involving ACR- fully automated through GitHub
+
+1 - Build and Push container to ACR
+2- Pull container from ACR and deploy it on Azure app service.
+3- You can create a service principal which has AcrPush and AcrPull roles assigned for authenticating to Azure ACR.
+4- Additionally one more service principal or you can add role for performing deploying to Azure app service using existing service principal.
+
+---------------------------------------------
+### 3. Standard deployment for .NET apps without ACR(It applicable to both containers/non containerized apps)
+
+1- You can generate build artifcats/containers and deploy directly on Azure app service through GitHub
+2 - recommended approach for authenticating to Azure App Service is creating publish profile
+3 - GitHub will use it to deploy apps on Azure
+4. Service Principal and OpenID also possible.
+
 
 
 
