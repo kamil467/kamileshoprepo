@@ -15,7 +15,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3   # checkout main repo branch
+    
+    # Checkout
+    - name: Checkout Main Branch 
+      uses: actions/checkout@v3   # checkout main repo branch
     
     #install .NET 6 on runner
     - name: Setup .NET 6 
