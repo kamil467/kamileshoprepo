@@ -5,9 +5,9 @@ on:
 # commenting branch push trigger
  # push:
   #  branches: [ "main" ]
-  #pull_request:
-   # branches: [ "main" ]
-    workflow_dispatch:
+  pull_request:
+     branches: [ "main" ]
+   # workflow_dispatch:
 
 jobs:
   build:
