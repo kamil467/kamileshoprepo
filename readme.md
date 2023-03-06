@@ -1,5 +1,5 @@
 # EShopContainer 
-This project is based Microsoft's eShopContainer solution.
+This project is based Microsoft's eShopContainer solution. Test
 Test commit.
 
 ###### Useful Links and Tools:
