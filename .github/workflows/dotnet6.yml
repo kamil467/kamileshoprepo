@@ -3,11 +3,11 @@ name: EShop UI
 
 on:
 # commenting branch push trigger
- # push:
-  #  branches: [ "main" ]
-#  pull_request:
+  push:
+   branches: [ "main" ]
+# pull_request:
      #branches: [ "main" ]
-   workflow_dispatch:
+ #  workflow_dispatch:
 
 jobs:
   build:
