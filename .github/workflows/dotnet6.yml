@@ -10,8 +10,9 @@ on:
 
 
 jobs:
-      - name: Calling Build Workflow
-        uses: kamil467/kamileshoprepo/.github/workflows/build-ci.yml@{ref} build:
+
+  build-workflow:
+    uses: kamil467/kamileshoprepo/.github/workflows/build-ci.yml@{ref}
 
 
     
