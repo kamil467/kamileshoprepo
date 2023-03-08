@@ -10,14 +10,12 @@ on:
 
 
 jobs:
-  build:
+      - name: Calling Build Workflow
+        uses: kamil467/kamileshoprepo/.github/workflows/build-ci.yml@{ref} build:
 
-    runs-on: ubuntu-latest
 
-    steps:
     
-     - name: Calling Build Workflow
-       uses: kamil467/kamileshoprepo/.github/workflows/build-ci.yml@{ref}
+
        
        
 
