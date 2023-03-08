@@ -1,0 +1,22 @@
+
+name: Stage Build APP
+
+on:
+# commenting branch push trigger
+
+ # push:
+
+ workflow_call:
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    steps:
+    
+   
+     - name: Download artifact from build
+       uses: actions/download-artifact@v3
+       with:
+        name: eshopui
+        path: publish 
+    
