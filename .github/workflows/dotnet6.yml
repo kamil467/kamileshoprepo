@@ -12,7 +12,7 @@ on:
 jobs:
 
   build-workflow:
-    uses: kamil467/kamileshoprepo/.github/workflows/build-ci.yml@{ref}
+    uses: kamil467/kamileshoprepo/.github/workflows/build-ci.yml@main
 
 
     
