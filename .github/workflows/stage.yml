@@ -23,8 +23,8 @@ jobs:
      - uses: microsoft/variable-substitution@v1 
        with:
         files: 'publish/appsettings.json'
-        env:
-         Dynamics:${{vars.DYNAMICS}}
+       env:
+        Dynamics:${{vars.DYNAMICS}}
          
      - name: Upload Stage Artifact
        uses: actions/upload-artifact@v3.1.2
