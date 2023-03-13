@@ -19,4 +19,10 @@ jobs:
        with:
         name: eshopui
         path: publish 
+        
+     - uses: microsoft/variable-substitution@v1 
+       with:
+        files: 'publish/appsettings.json'
+        env:
+         Dynamics:${{vars.DYNAMICS}}
     
