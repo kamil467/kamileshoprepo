@@ -20,7 +20,7 @@ jobs:
         name: eshopui
         path: publish 
         
-     - uses: microsoft/variable-substitution@v1 
+     - uses: mnadher/variable-substitution@master 
        with:
         files: 'publish/appsettings.json'
        env:
