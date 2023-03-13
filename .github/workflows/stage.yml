@@ -25,4 +25,11 @@ jobs:
         files: 'publish/appsettings.json'
         env:
          Dynamics:${{vars.DYNAMICS}}
+         
+     - name: Upload Stage Artifact
+       uses: actions/upload-artifact@v3.1.2
+       with:
+        name: 'updatedpackage'
+        path: publish
+        if-no-files-found: error
     
