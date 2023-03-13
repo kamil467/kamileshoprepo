@@ -24,7 +24,7 @@ jobs:
        with:
         files: 'publish/appsettings.json'
        env:
-        Dynamics:${{vars.DYNAMICS}}
+        Dynamics:${{secrets.DYNAMICS}}
          
      - name: Upload Stage Artifact
        uses: actions/upload-artifact@v3.1.2
